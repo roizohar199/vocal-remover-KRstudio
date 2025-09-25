@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
-RUN pip3 install --no-cache-dir \
+# Install Python dependencies with --break-system-packages flag
+RUN pip3 install --no-cache-dir --break-system-packages \
     demucs \
     torch \
     torchaudio \
