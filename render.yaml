@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: vocal-remover-studio
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    region: oregon
+    branch: main
+    buildCommand: ""
+    startCommand: ""
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+    healthCheckPath: /api/health
+    disk:
+      name: audio-storage
+      mountPath: /app/uploads
+      sizeGB: 1
