@@ -23,6 +23,9 @@ app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 app.use('/separated', express.static('separated'));
 
+// Serve static files from the dist directory (built frontend)
+app.use(express.static(path.join(__dirname, '..', 'dist')));
+
 // Create directories if they don't exist
 const uploadsDir = path.join(__dirname, 'uploads');
 const separatedDir = path.join(__dirname, 'separated');
@@ -387,6 +390,11 @@ app.delete('/api/projects/:id', async (req, res) => {
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Catch-all handler: send back React's index.html file for any non-API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'));
 });
 
 app.listen(PORT, () => {
